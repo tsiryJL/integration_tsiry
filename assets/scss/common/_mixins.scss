@@ -1,0 +1,155 @@
+@mixin browserCss($prop, $value) {
+  -moz-#{$prop}: $value;
+  -ms-#{$prop}: $value;
+  -o-#{$prop}: $value;
+  -webkit-#{$prop}: $value;
+  #{$prop}: $value;
+}
+
+@mixin font-face(
+  $name,
+  $path,
+  $weight: null,
+  $style: null,
+  $exts: eot ttf svg
+) {
+  $src: null;
+  $extmods: (
+    eot: "?",
+    svg: "#" + str-replace($name, " ", "_"),
+  );
+  $formats: (
+    otf: "opentype",
+    ttf: "truetype",
+  );
+  @each $ext in $exts {
+    $extmod: if(
+      map-has-key($extmods, $ext),
+      $ext + map-get($extmods, $ext),
+      $ext
+    );
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append(
+      $src,
+      url(quote($path + "." + $extmod)) format(quote($format)),
+      comma
+    );
+  }
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@mixin max($value) {
+  @media (max-width: $value) {
+    @content;
+  }
+}
+@mixin min($value) {
+  @media (min-width: $value) {
+    @content;
+  }
+}
+@mixin minMax($valueMin, $valueMax) {
+  @media (min-width: $valueMin) and (max-width: $valueMax) {
+    @content;
+  }
+}
+
+@mixin maxHW($valueh, $valuew) {
+  @media (max-height: $valueh) and (min-width: $valuew) {
+    @content;
+  }
+}
+
+@mixin maxHmaxW($valueh, $valuew) {
+  @media (max-height: $valueh) and (max-width: $valuew) {
+    @content;
+  }
+}
+
+@mixin maxHminmaxW($valueh, $valuew1, $valuew2) {
+  @media (max-height: $valueh) and (min-width: $valuew1) and (max-width: $valuew2) {
+    @content;
+  }
+}
+
+@mixin maxH($value) {
+  @media (max-height: $value) {
+    @content;
+  }
+}
+
+@mixin minH($value) {
+  @media (min-height: $value) {
+    @content;
+  }
+}
+
+@mixin minHminmaxW($value, $valuew1, $valuew2) {
+  @media (min-height: $value) and (min-width: $valuew1) and (max-width: $valuew2) {
+    @content;
+  }
+}
+
+@mixin paginatorCarousel($justify-content) {
+  // slide partenaire
+  .slide-partenaires-number {
+    display: flex;
+    align-items: center;
+    justify-content: $justify-content;
+    font-family: $medium;
+    font-size: 13px;
+    color: $greydark2;
+    margin-top: 15px;
+    @include min(992px) {
+      margin-top: -10px;
+      font-size: 16px;
+    }
+  }
+  .slide-num-separator {
+    width: 50px;
+    height: 1px;
+    background: $greydark;
+    margin: 0px 18px;
+    display: block;
+  }
+}
+@mixin paginatorCarousel($justify-content) {
+    // slide partenaire
+    .slide-partenaires-number {
+      display: flex;
+      align-items: center;
+      justify-content: $justify-content;
+      font-family: $medium;
+      font-size: 13px;
+      color: $greydark2;
+      margin-top: 15px;
+      @include min(992px) {
+        margin-top: -10px;
+        font-size: 16px;
+      }
+    }
+    .slide-num-separator {
+      width: 50px;
+      height: 1px;
+      background: $greydark;
+      margin: 0px 18px;
+      display: block;
+    }
+  }
+  
+  
+ 
+  @function max($numbers...) {
+    @return m#{a}x(#{$numbers})
+
+  }
+
+@function min($numbers...) {
+  @return m#{i}n(#{$numbers})
+
+}
